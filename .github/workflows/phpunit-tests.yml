@@ -271,7 +271,7 @@ jobs:
   # requests back to their own forks for testing purposes without having to wait hours for workflow to complete.
   #
   limited-matrix-for-forks:
-    name: PHP ${{ matrix.php }}
+    name: ${{ matrix.db-type }}${{ matrix.db-version }} ms-${{ matrix.multisite }} r${{ matrix.rep }}
     uses: ./.github/workflows/reusable-phpunit-tests-v3.yml
     permissions:
       contents: read
@@ -282,32 +282,11 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        php: [ '7.4', '8.4' ]
+        php: [ '8.4' ]
         db-version: [ '9.7', '11.8' ]
         db-type: [ 'mysql', 'mariadb' ]
-        multisite: [ false ]
-
-        include:
-          # Include one multisite job for each database type.
-          - php: '8.4'
-            db-version: '9.7'
-            db-type: 'mysql'
-            multisite: true
-          - php: '8.4'
-            db-version: '11.8'
-            db-type: 'mariadb'
-            multisite: true
-          # Test with memcached.
-          - php: '8.4'
-            db-version: '9.7'
-            db-type: 'mysql'
-            multisite: true
-            memcached: true
-          # Run specific test groups once.
-          - php: '8.4'
-            db-version: '9.7'
-            db-type: 'mysql'
-            phpunit-test-groups: 'html-api-web-platform-tests'
+        multisite: [ false, true ]
+        rep: [ 1, 2, 3 ]
 
         exclude:
           # Exclude PHP versions that are not supported by the database versions.
@@ -320,8 +299,10 @@ jobs:
       php: ${{ matrix.php }}
       db-version: ${{ matrix.db-version }}
       db-type: ${{ matrix.db-type }}
-      memcached: ${{ matrix.memcached || false }}
-      phpunit-test-groups: ${{ matrix.phpunit-test-groups || '' }}
+      multisite: ${{ matrix.multisite }}
+      phpunit-config: ${{ matrix.multisite && 'tests/phpunit/multisite.xml' || 'phpunit.xml.dist' }}
+      memcached: false
+      phpunit-test-groups: ''
 
   slack-notifications:
     name: Slack Notifications
