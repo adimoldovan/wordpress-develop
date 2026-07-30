@@ -34,6 +34,8 @@ on:
       - 'tests/phpunit/**'
       - 'tests/phpunit/multisite.xml'
       - 'phpunit.xml.dist'
+      # The database container configuration affects the outcome.
+      - 'docker-compose.yml'
       # Confirm any changes to relevant workflow files.
       - '.github/workflows/phpunit-tests.yml'
       - '.github/workflows/reusable-phpunit-tests-*.yml'
