@@ -53,7 +53,7 @@ jobs:
     uses: ./.github/workflows/reusable-support-json-reader-v1.yml
     permissions:
       contents: read
-    if: ${{ github.repository == 'WordPress/wordpress-develop' }}
+    if: ${{ true }}
     with:
       wp-version: ${{ inputs.wp-version }}
 
@@ -70,7 +70,7 @@ jobs:
     permissions:
       contents: read
     runs-on: ${{ matrix.os }}
-    if: ${{ github.repository == 'WordPress/wordpress-develop' }}
+    if: ${{ true }}
     timeout-minutes: 15
     needs: [ build-test-matrix ]
 
