@@ -86,7 +86,7 @@ jobs:
         env:
           WP_VERSION: ${{ inputs.version }}
           DOWNLOAD_DIR: ${{ runner.temp }}/wordpress-release
-          MAX_WAIT_SECONDS: 2700 # 45 minutes.
+          MAX_WAIT_SECONDS: 120
           RETRY_DELAY_SECONDS: 60
 
       - name: Upload the release zip

@@ -57,7 +57,7 @@ jobs:
     uses: ./.github/workflows/reusable-support-json-reader-v1.yml
     permissions:
       contents: read
-    if: ${{ github.repository == 'WordPress/wordpress-develop' }}
+    if: ${{ github.repository == 'adimoldovan/wordpress-develop' }}
     with:
       wp-version: ${{ inputs.wp-version }}
 
@@ -67,7 +67,7 @@ jobs:
     uses: ./.github/workflows/reusable-download-wordpress-release.yml
     permissions:
       contents: read
-    if: ${{ github.repository == 'WordPress/wordpress-develop' }}
+    if: ${{ github.repository == 'adimoldovan/wordpress-develop' }}
     with:
       version: ${{ inputs.wp-version || 'nightly' }}
 
@@ -84,7 +84,7 @@ jobs:
     permissions:
       contents: read
     runs-on: ${{ matrix.os }}
-    if: ${{ github.repository == 'WordPress/wordpress-develop' }}
+    if: ${{ github.repository == 'adimoldovan/wordpress-develop' }}
     timeout-minutes: 15
     needs: [ build-test-matrix, download-wordpress ]
 
